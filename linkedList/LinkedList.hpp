@@ -1,6 +1,6 @@
 /**
-*	@author 
-*	@date 
+*	@author
+*	@date
 *	@file LinkedList.hpp
 *	@brief Implementation file for templated LinkedList class
 */
@@ -12,7 +12,7 @@ LinkedList<T>::LinkedList() : m_front(nullptr), m_size(0)
 }
 
 template <typename T>
-LinkedList<T>::~LinkedList() 
+LinkedList<T>::~LinkedList()
 {
 	while(!isEmpty())
 	{
@@ -29,23 +29,50 @@ bool LinkedList<T>::isEmpty() const
 template <typename T>
 int LinkedList<T>::size() const
 {
-	/** TODO 
-		Fix this method
-	*/
-	return(0);
+	Node<T>* temp = m_front;
+
+	int i=1;
+	if(isEmpty()==true)
+	{
+		return (0);
+	}
+	else
+	{
+	while(temp->getNext() != nullptr)
+	{
+		i=i+1;
+		temp = temp->getNext();
+	}
+	return (i);
+
+}
+
 }
 
 template <typename T>
 bool LinkedList<T>::search(T value) const
 {
 	Node<T>* temp = m_front;
-	bool isFound = false;
+	if(isEmpty()==true)
+	{
+		return (false);
+	}
+	else{
+		while(temp->getNext() != nullptr)
+		{
 
-	/** TODO 
-		Fix this method
-	*/
-
-	return(isFound);
+			if(temp->getValue()==value)
+			{
+				return (true);
+			}
+			temp = temp->getNext();
+		}
+		if(temp->getValue()==value)
+		{
+			return (true);
+		}
+	}
+return(false);
 }
 
 template <typename T>
@@ -60,8 +87,8 @@ std::vector<T> LinkedList<T>::toVector() const
 		temp = temp->getNext();
 	}
 
-	return(vec);	
-	
+	return(vec);
+
 }
 
 template <typename T>
@@ -71,7 +98,7 @@ void LinkedList<T>::addBack(T value)
 
 	if(isEmpty())
 	{
-		m_front = new Node<T>(value);	
+		m_front = new Node<T>(value);
 	}
 	else
 	{
@@ -81,7 +108,7 @@ void LinkedList<T>::addBack(T value)
 			temp = temp->getNext();
 		}
 
-		temp->setNext( new Node<T>(value) );		
+		temp->setNext( new Node<T>(value) );
 	}
 
 	m_size++;
@@ -101,14 +128,36 @@ bool LinkedList<T>::removeBack()
 {
 	Node<T>* lastNode = nullptr;
 	Node<T>* secondintoLast = nullptr;
-	bool isRemoved = false;
+	if(isEmpty()==true)
+	{
+		return false;
+	}
+	else if (size()==1)
+	{
+		delete m_front;
+		return true;
+	}
+	else
+	{
+		lastNode = m_front;
+		secondintoLast= m_front;
+		while(lastNode->getNext() != nullptr)
+		{
+			lastNode = lastNode->getNext();
+		}
+		while(secondintoLast->getNext()->getNext() != nullptr)
+		{
+			secondintoLast = secondintoLast->getNext();
+		}
 
-	/** TODO 
-		Fix this method
-	*/
+		secondintoLast->setNext(nullptr);
+		delete lastNode;
+		m_size--;
 
-	return(isRemoved);
-}	
+		return (true);
+	}
+	return (false);
+}
 
 template <typename T>
 bool LinkedList<T>::removeFront()
