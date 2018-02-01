@@ -29,22 +29,7 @@ bool LinkedList<T>::isEmpty() const
 template <typename T>
 int LinkedList<T>::size() const
 {
-	Node<T>* temp = m_front;
-
-	int i=1;
-	if(isEmpty()==true)
-	{
-		return (0);
-	}
-	else
-	{
-	while(temp->getNext() != nullptr)
-	{
-		i=i+1;
-		temp = temp->getNext();
-	}
-	return (i);
-
+	
 }
 
 }
